@@ -237,3 +237,94 @@ nav ul li a {
     padding: 0.5rem 1rem;
     border-radius: 8px;
 }
+
+nav ul li a:hover {
+    background-color: #4c6ef5;
+}
+
+nav ul li a:active {
+    background-color: #364fc7;
+}
+
+nav ul li a:focus {
+    outline: 2px solid yellow;
+}
+
+/* ===== Секції ===== */
+
+section {
+    background-color: white;
+    margin: 2rem;
+    padding: 2rem;
+    border-radius: 12px;
+}
+/* ===== Таблиця ===== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+    padding: 1rem;
+}
+
+th {
+    background-color: #4c6ef5;
+    color: white;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f1f3f5;
+}
+
+tbody tr:hover {
+    background-color: #dbe4ff;
+}
+
+/* ===== Форма ===== */
+
+form {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+label {
+    display: block;
+    margin-top: 1rem;
+}
+
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #4c6ef5;
+    outline: none;
+}
+
+button {
+    margin-top: 1rem;
+    padding: 0.8rem 1.5rem;
+    background-color: #4c6ef5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #364fc7;
+}
