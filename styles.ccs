@@ -1,19 +1,24 @@
+/* ===== VARIABLES ===== */
 :root {
-    --color-primary: #4c6ef5;
+    --color-primary: #3498db;
     --color-secondary: #2ecc71;
-    --color-bg: #f5f5f5;
-    --color-text: #333;
+    --color-bg: #ffffff;
+    --color-text: #333333;
 
-    --font-main: 'Roboto', sans-serif;
+    --font-main: 'Roboto', Arial, sans-serif;
 
-    --spacing: 1rem;
-    --radius: 12px;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
 
-    --transition: 0.3s;
+    --border-radius: 12px;
+    --transition-speed: 0.3s;
 }
 
-/* BASE */
-* {
+/* ===== RESET ===== */
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
@@ -22,15 +27,11 @@ body {
     font-family: var(--font-main);
     background: var(--color-bg);
     color: var(--color-text);
-    font-size: clamp(1rem, 1.5vw, 1.1rem);
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    line-height: 1.6;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* GRID LAYOUT */
+/* ===== GRID LAYOUT ===== */
 .page {
     display: grid;
     grid-template-areas:
@@ -38,16 +39,11 @@ img {
         "content"
         "sidebar"
         "footer";
-    gap: var(--spacing);
-    padding: var(--spacing);
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
 }
 
-header { grid-area: header; }
-main { grid-area: content; }
-aside { grid-area: sidebar; }
-footer { grid-area: footer; }
-
-/* DESKTOP GRID */
+/* desktop */
 @media (min-width: 1024px) {
     .page {
         grid-template-areas:
@@ -58,17 +54,23 @@ footer { grid-area: footer; }
     }
 }
 
-/* HEADER */
+header { grid-area: header; }
+main { grid-area: content; }
+aside { grid-area: sidebar; }
+footer { grid-area: footer; }
+
+/* ===== HEADER ===== */
 header {
-    background: #222;
-    color: white;
-    padding: var(--spacing);
+    background: var(--color-primary);
+    padding: var(--spacing-md);
+    position: sticky;
+    top: 0;
 }
 
-/* NAV (FLEX) */
+/* ===== NAV (FLEXBOX) ===== */
 .nav-list {
     display: flex;
-    gap: var(--spacing);
+    gap: var(--spacing-md);
     list-style: none;
     padding: 0;
 }
@@ -76,86 +78,57 @@ header {
 .nav-list a {
     color: white;
     text-decoration: none;
-    transition: var(--transition);
+    transition: var(--transition-speed);
 }
 
 .nav-list a:hover {
     color: var(--color-secondary);
 }
 
-/* HAMBURGER */
-#menu-toggle {
-    display: none;
+/* ===== SECTIONS ===== */
+section {
+    margin: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: #fff;
+    border-radius: var(--border-radius);
+    animation: fadeIn 0.6s ease;
 }
 
-.hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-}
-
-.hamburger span {
-    width: 25px;
-    height: 3px;
-    background: white;
-}
-
-/* MOBILE MENU */
-@media (max-width: 768px) {
-    .hamburger {
-        display: flex;
-    }
-
-    .nav-list {
-        display: none;
-        flex-direction: column;
-    }
-
-    #menu-toggle:checked ~ .nav-list {
-        display: flex;
-    }
-}
-
-/* CARDS GRID */
+/* ===== CARDS GRID ===== */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--spacing);
+    gap: var(--spacing-md);
 }
 
 .card {
-    background: white;
-    padding: var(--spacing);
-    border-radius: var(--radius);
-    transition: var(--transition);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    background: #f5f5f5;
+    transition: transform var(--transition-speed);
 }
 
 .card:hover {
     transform: translateY(-5px);
 }
 
-/* SECTIONS ANIMATION */
-section {
-    animation: fadeIn 0.5s ease;
+/* ===== IMG ===== */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
+/* ===== ANIMATION ===== */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ASIDE */
-aside {
-    background: #e9ecef;
-    padding: var(--spacing);
-    border-radius: var(--radius);
-}
-
-/* FOOTER */
+/* ===== FOOTER ===== */
 footer {
     text-align: center;
-    padding: var(--spacing);
-    background: #222;
+    padding: var(--spacing-md);
+    background: #111;
     color: white;
 }
