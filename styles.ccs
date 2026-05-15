@@ -212,3 +212,28 @@ body {
     color: rgb(40, 40, 40);
     line-height: 1.6;
 }
+
+/* ===== Хедер та навігація ===== */
+
+header {
+    background-color: hsl(220, 40%, 20%);
+    padding: 1rem;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 1rem;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+}
