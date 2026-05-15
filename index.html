@@ -2,31 +2,46 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Todo App</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Персональне портфоліо фронтенд-розробниці Єлізавети Кравцової" />
+  <meta name="author" content="Єлізавета Кравцова" />
+  <title>Головна — Портфоліо Єлізавети Кравцової</title>
 </head>
 <body>
 
-<div class="todo-app">
+  <header>
+    <h1>Єлізавета Кравцова</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html" aria-current="page">Головна</a></li>
+        <li><a href="about.html">Про мене</a></li>
+        <li><a href="contacts.html">Контакти</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <h1>Todo App</h1>
+  <main>
+    <section>
+      <figure>
+        <img src="images/photo.jpg" alt="Фото Єлізавети Кравцової" width="250" />
+        <figcaption>Фото Єлізавети Кравцової</figcaption>
+      </figure>
+      <p>Вітаю! Мене звати Єлізавета Кравцова, я початківець фронтенд-розробниця.</p>
+      <p>Мої цілі — опанувати сучасні веб-технології та створювати якісні сайти.</p>
+      <blockquote>«Навчання — це ключ до успіху»</blockquote>
+      <h2>Ключові навички:</h2>
+      <ul>
+        <li>HTML5</li>
+        <li>CSS3</li>
+        <li>JavaScript</li>
+        <li>Git</li>
+      </ul>
+    </section>
+  </main>
 
-  <input class="task-input" placeholder="Нове завдання">
-  <button class="add-btn" disabled>Додати</button>
+  <footer>
+    <p>&copy; 2024 Єлізавета Кравцова. Всі права захищені.</p>
+  </footer>
 
-  <input class="search-input" placeholder="Пошук...">
-
-  <div class="filters">
-    <button data-filter="all">Всі</button>
-    <button data-filter="active">Активні</button>
-    <button data-filter="done">Виконані</button>
-  </div>
-
-  <ul class="task-list"></ul>
-
-</div>
-
-<script src="script.js"></script>
 </body>
 </html>
