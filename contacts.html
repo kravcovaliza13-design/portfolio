@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="uk">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Контактна інформація Єлізавети Кравцової">
     <meta name="author" content="Єлізавета Кравцова">
+
     <title>Контакти — Портфоліо</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
 <header>
@@ -23,118 +35,96 @@
 
 <main>
 
+    <section>
+        <h2>Контактна інформація</h2>
+
+        <p>
+            Email:
+            <a href="mailto:kravcovaliza13@gmail.com">
+                kravcovaliza13@gmail.com
+            </a>
+        </p>
+
+        <p>
+            Телефон:
+            <a href="tel:+380667204154">
+                +38 (066) 720-41-54
+            </a>
+        </p>
+    </section>
 
     <section>
-    <h2>Контактна інформація:
+        <h2>Форма зворотного зв'язку</h2>
 
-    </h2>
+        <form action="#" method="post">
 
-    <p>
-        Email:
-        <a href="mailto:kravcovaliza13@gmail.com">
-            kravcovaliza13@gmail.com
-        </a>
-    </p>
+            <fieldset>
+                <legend>Контактна інформація</legend>
 
-    <p>
-        Телефон:
-        <a href="tel:+380667204154">
-            +38 (066) 720-41-54
-        </a>
-    </p>
-</section>
+                <label for="name">Ім'я:</label><br>
+                <input type="text" id="name" name="name" placeholder="Введіть ваше ім'я" required>
 
-<section>
-    <h2>Форма зворотного зв'язку</h2>
+                <br><br>
 
-    <form action="#" method="post">
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email" placeholder="email@example.com" required>
+            </fieldset>
 
-        <fieldset>
-            <legend>Контактна інформація</legend>
+            <br>
 
-            <label for="name">Ім'я:</label><br>
-            <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Введіть ваше ім'я"
-                required
-            >
+            <fieldset>
+                <legend>Повідомлення</legend>
 
-            <br><br>
+                <label for="subject">Тема:</label><br>
 
-            <label for="email">Email:</label><br>
-            <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="email@example.com"
-                required
-            >
-        </fieldset>
+                <select id="subject" name="subject" required>
+                    <option value="">-- Оберіть тему --</option>
+                    <option value="general">Загальне питання</option>
+                    <option value="cooperation">Співпраця</option>
+                    <option value="feedback">Відгук</option>
+                </select>
 
-        <br>
+                <p>Тип звернення:</p>
 
-        <fieldset>
-            <legend>Повідомлення</legend>
+                <label>
+                    <input type="radio" name="type" value="question" required>
+                    Питання
+                </label>
 
-            <label for="subject">Тема:</label><br>
+                <br>
 
-            <select id="subject" name="subject" required>
-                <option value="">-- Оберіть тему --</option>
-                <option value="general">Загальне питання</option>
-                <option value="cooperation">Співпраця</option>
-                <option value="feedback">Відгук</option>
-            </select>
+                <label>
+                    <input type="radio" name="type" value="suggestion">
+                    Пропозиція
+                </label>
 
-            <p>Тип звернення:</p>
+                <br>
 
-            <label>
-                <input type="radio" name="type" value="question" required>
-                Питання
-            </label>
+                <label>
+                    <input type="radio" name="type" value="complaint">
+                    Скарга
+                </label>
+
+                <br><br>
+
+                <label for="message">Повідомлення:</label><br>
+
+                <textarea id="message" name="message" rows="5" cols="40" placeholder="Ваше повідомлення" required></textarea>
+            </fieldset>
 
             <br>
 
             <label>
-                <input type="radio" name="type" value="suggestion">
-                Пропозиція
-            </label>
-
-            <br>
-
-            <label>
-                <input type="radio" name="type" value="complaint">
-                Скарга
+                <input type="checkbox" name="consent" required>
+                Я погоджуюсь на обробку персональних даних
             </label>
 
             <br><br>
 
-            <label for="message">Повідомлення:</label><br>
+            <button type="submit">Надіслати</button>
 
-            <textarea
-                id="message"
-                name="message"
-                rows="5"
-                cols="40"
-                placeholder="Ваше повідомлення"
-                required
-            ></textarea>
-        </fieldset>
-
-        <br>
-
-        <label>
-            <input type="checkbox" name="consent" required>
-            Я погоджуюсь на обробку персональних даних
-        </label>
-
-        <br><br>
-
-        <button type="submit">Надіслати</button>
-
-    </form>
-</section>
+        </form>
+    </section>
 
 </main>
 
@@ -143,11 +133,5 @@
 </footer>
 
 </body>
+
 </html>
-
-<link rel="stylesheet" href="styles.css">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
