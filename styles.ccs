@@ -328,3 +328,23 @@ button {
 button:hover {
     background-color: #364fc7;
 }
+
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+main {
+    padding-top: 100px;
+}
+
+h2::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: #4c6ef5;
+    margin-top: 0.5rem;
+}
