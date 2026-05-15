@@ -1,24 +1,19 @@
-const API_URL = 'https://jsonplaceholder.typicode.com/todos';
+const API = 'https://jsonplaceholder.typicode.com/todos';
 
-const taskList = document.querySelector('.task-list');
-const todoForm = document.querySelector('.todo-form');
-const todoInput = document.querySelector('.todo-input');
+const list = document.querySelector('.task-list');
+const input = document.querySelector('.todo-input');
 const addBtn = document.querySelector('.add-btn');
-
-const filterButtons = document.querySelectorAll('.filter-btn');
-
-const searchInput = document.querySelector('.search-input');
-
-const loader = document.querySelector('.loader');
-
+const search = document.querySelector('.search-input');
+const filters = document.querySelectorAll('.filter-btn');
 const counter = document.querySelector('.counter');
+const loader = document.querySelector('.loader');
+const form = document.querySelector('.todo-form');
 
 let tasks = [];
 let currentFilter = 'all';
 let searchText = '';
 
-/* ===== Loader ===== */
-
+/* ===== LOADER ===== */
 function showLoader() {
     loader.classList.remove('hidden');
 }
@@ -27,345 +22,133 @@ function hideLoader() {
     loader.classList.add('hidden');
 }
 
-/* ===== Counter ===== */
-
+/* ===== COUNTER ===== */
 function updateCounter() {
-    const activeTasks = tasks.filter(task => !task.completed);
-    counter.textContent = activeTasks.length;
+    counter.textContent = tasks.filter(t => !t.completed).length;
 }
 
-/* ===== Create task ===== */
-
-function createTaskElement(task) {
-
+/* ===== CREATE TASK ===== */
+function createTask(task) {
     const li = document.createElement('li');
     li.classList.add('task-item');
-
-    if (task.completed) {
-        li.classList.add('completed');
-    }
-
     li.dataset.id = task.id;
 
     li.innerHTML = `
-        <div class="task-content">
-            <input
-                type="checkbox"
-                class="task-checkbox"
-                ${task.completed ? 'checked' : ''}
-            >
-
-            <span class="task-title">
-                ${task.title}
-            </span>
-        </div>
-
-        <button class="task-delete">
-            Видалити
-        </button>
+        <input type="checkbox" ${task.completed ? 'checked' : ''}>
+        <span class="${task.completed ? 'done' : ''}">${task.title}</span>
+        <button class="delete">✖</button>
     `;
 
     return li;
 }
 
-/* ===== Render ===== */
+/* ===== RENDER ===== */
+function render() {
+    list.innerHTML = '';
 
-function renderTasks(tasksToRender) {
+    let filtered = [...tasks];
 
-    taskList.innerHTML = '';
+    if (currentFilter === 'active') {
+        filtered = filtered.filter(t => !t.completed);
+    }
 
-    tasksToRender.forEach(task => {
-        const taskElement = createTaskElement(task);
-        taskList.append(taskElement);
-    });
+    if (currentFilter === 'completed') {
+        filtered = filtered.filter(t => t.completed);
+    }
+
+    if (searchText) {
+        filtered = filtered.filter(t =>
+            t.title.toLowerCase().includes(searchText.toLowerCase())
+        );
+    }
+
+    filtered.forEach(t => list.appendChild(createTask(t)));
 
     updateCounter();
 }
 
-/* ===== Filters ===== */
-
-function getFilteredTasks() {
-
-    let filteredTasks = [...tasks];
-
-    if (currentFilter === 'active') {
-        filteredTasks = filteredTasks.filter(task => !task.completed);
-    }
-
-    if (currentFilter === 'completed') {
-        filteredTasks = filteredTasks.filter(task => task.completed);
-    }
-
-    if (searchText.trim() !== '') {
-        filteredTasks = filteredTasks.filter(task =>
-            task.title.toLowerCase().includes(searchText.toLowerCase())
-        );
-    }
-
-    return filteredTasks;
-}
-
-function updateUI() {
-    renderTasks(getFilteredTasks());
-}
-
-/* ===== Load tasks ===== */
-
+/* ===== LOAD ===== */
 async function loadTasks() {
-
     showLoader();
 
     try {
-
-        const response = await fetch(`${API_URL}?_limit=20`);
-
-        if (!response.ok) {
-            throw new Error('Помилка завантаження');
-        }
-
-        tasks = await response.json();
-
-        updateUI();
-
-    } catch (error) {
-
-        alert('Не вдалося завантажити завдання');
-
-        console.error(error);
-
+        const res = await fetch(`${API}?_limit=10`);
+        tasks = await res.json();
+        render();
+    } catch (e) {
+        alert('Помилка завантаження');
     } finally {
-
         hideLoader();
     }
 }
 
-/* ===== Add task ===== */
+/* ===== ADD ===== */
+form.addEventListener('submit', e => {
+    e.preventDefault();
 
-async function addTask(title) {
+    const text = input.value.trim();
+    if (!text) return;
 
-    showLoader();
+    const newTask = {
+        id: Date.now(),
+        title: text,
+        completed: false
+    };
 
-    try {
+    tasks.unshift(newTask);
 
-        const response = await fetch(API_URL, {
-            method: 'POST',
+    input.value = '';
+    addBtn.disabled = true;
 
-            headers: {
-                'Content-Type': 'application/json'
-            },
-
-            body: JSON.stringify({
-                title,
-                completed: false,
-                userId: 1
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error('Помилка створення');
-        }
-
-        const newTask = await response.json();
-
-        tasks.unshift(newTask);
-
-        updateUI();
-
-        todoInput.value = '';
-
-        addBtn.disabled = true;
-
-    } catch (error) {
-
-        alert('Не вдалося додати завдання');
-
-        console.error(error);
-
-    } finally {
-
-        hideLoader();
-    }
-}
-
-/* ===== Toggle task ===== */
-
-async function toggleTask(id, completed) {
-
-    try {
-
-        const response = await fetch(`${API_URL}/${id}`, {
-
-            method: 'PATCH',
-
-            headers: {
-                'Content-Type': 'application/json'
-            },
-
-            body: JSON.stringify({
-                completed
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error('Помилка оновлення');
-        }
-
-        tasks = tasks.map(task => {
-
-            if (task.id === id) {
-                return {
-                    ...task,
-                    completed
-                };
-            }
-
-            return task;
-        });
-
-        updateUI();
-
-    } catch (error) {
-
-        alert('Не вдалося оновити завдання');
-
-        console.error(error);
-    }
-}
-
-/* ===== Delete task ===== */
-
-async function deleteTask(id) {
-
-    try {
-
-        const response = await fetch(`${API_URL}/${id}`, {
-            method: 'DELETE'
-        });
-
-        if (!response.ok) {
-            throw new Error('Помилка видалення');
-        }
-
-        tasks = tasks.filter(task => task.id !== id);
-
-        updateUI();
-
-    } catch (error) {
-
-        alert('Не вдалося видалити завдання');
-
-        console.error(error);
-    }
-}
-
-/* ===== Form submit ===== */
-
-todoForm.addEventListener('submit', event => {
-
-    event.preventDefault();
-
-    const title = todoInput.value.trim();
-
-    if (!title) return;
-
-    addTask(title);
+    render();
 });
 
-/* ===== Input ===== */
-
-todoInput.addEventListener('input', () => {
-
-    addBtn.disabled = todoInput.value.trim() === '';
+/* ===== INPUT ===== */
+input.addEventListener('input', () => {
+    addBtn.disabled = !input.value.trim();
 });
 
-/* ===== Keyboard ===== */
-
-todoInput.addEventListener('keydown', event => {
-
-    if (event.key === 'Escape') {
-        todoInput.value = '';
-        addBtn.disabled = true;
-    }
-});
-
-/* ===== Event delegation ===== */
-
-taskList.addEventListener('click', event => {
-
-    const target = event.target;
-
-    const taskItem = target.closest('.task-item');
-
-    if (!taskItem) return;
-
-    const taskId = Number(taskItem.dataset.id);
-
-    if (target.classList.contains('task-delete')) {
-        deleteTask(taskId);
-    }
-});
-
-taskList.addEventListener('change', event => {
-
-    const target = event.target;
-
-    const taskItem = target.closest('.task-item');
-
-    if (!taskItem) return;
-
-    const taskId = Number(taskItem.dataset.id);
-
-    if (target.classList.contains('task-checkbox')) {
-        toggleTask(taskId, target.checked);
-    }
-});
-
-/* ===== Filters ===== */
-
-filterButtons.forEach(button => {
-
-    button.addEventListener('click', () => {
-
-        filterButtons.forEach(btn => {
-            btn.classList.remove('active');
-        });
-
-        button.classList.add('active');
-
-        currentFilter = button.dataset.filter;
-
-        updateUI();
-    });
-});
-
-/* ===== Debounce ===== */
-
-function debounce(func, delay) {
-
-    let timeoutId;
-
+/* ===== SEARCH (DEBOUNCE) ===== */
+function debounce(fn, delay) {
+    let t;
     return (...args) => {
-
-        clearTimeout(timeoutId);
-
-        timeoutId = setTimeout(() => {
-            func(...args);
-        }, delay);
+        clearTimeout(t);
+        t = setTimeout(() => fn(...args), delay);
     };
 }
 
-searchInput.addEventListener(
-    'input',
+search.addEventListener('input', debounce(e => {
+    searchText = e.target.value;
+    render();
+}, 300));
 
-    debounce(event => {
+/* ===== FILTERS ===== */
+filters.forEach(btn => {
+    btn.addEventListener('click', () => {
+        filters.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
 
-        searchText = event.target.value;
+        currentFilter = btn.dataset.filter;
+        render();
+    });
+});
 
-        updateUI();
+/* ===== DELEGATION ===== */
+list.addEventListener('click', e => {
+    const id = Number(e.target.closest('.task-item')?.dataset.id);
+    if (!id) return;
 
-    }, 300)
-);
+    if (e.target.classList.contains('delete')) {
+        tasks = tasks.filter(t => t.id !== id);
+    }
 
-/* ===== Start ===== */
+    if (e.target.type === 'checkbox') {
+        const task = tasks.find(t => t.id === id);
+        task.completed = e.target.checked;
+    }
 
+    render();
+});
+
+/* START */
 loadTasks();
