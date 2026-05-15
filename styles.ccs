@@ -348,3 +348,12 @@ h2::after {
     background-color: #4c6ef5;
     margin-top: 0.5rem;
 }
+
+/* ===== Футер ===== */
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #212529;
+    color: white;
+}
