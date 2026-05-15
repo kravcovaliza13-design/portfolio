@@ -292,3 +292,21 @@ footer {
         align-items: flex-start;
     }
 }
+
+.todo-app {
+  max-width: 500px;
+  margin: 50px auto;
+  font-family: Arial;
+}
+
+.task-item {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+  align-items: center;
+}
+
+.task-item .done {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
