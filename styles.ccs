@@ -1,204 +1,161 @@
-/* ===== Загальні стилі ===== */
+:root {
+    --color-primary: #4c6ef5;
+    --color-secondary: #2ecc71;
+    --color-bg: #f5f5f5;
+    --color-text: #333;
 
-*,
-*::before,
-*::after {
+    --font-main: 'Roboto', sans-serif;
+
+    --spacing: 1rem;
+    --radius: 12px;
+
+    --transition: 0.3s;
+}
+
+/* BASE */
+* {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    padding: 0;
-    font-family: 'Roboto', Arial, sans-serif;
-    background-color: #f5f5f5;
-    color: rgb(40, 40, 40);
-    line-height: 1.6;
-}
-
-/* ===== Хедер та навігація ===== */
-
-header {
-    background-color: hsl(220, 40%, 20%);
-    padding: 1rem;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
-main {
-    padding-top: 100px;
-}
-
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline-block;
-    margin-right: 1rem;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    transition: 0.3s;
-}
-
-nav ul li a:hover {
-    background-color: #4c6ef5;
-}
-
-nav ul li a:active {
-    background-color: #364fc7;
-}
-
-nav ul li a:focus {
-    outline: 2px solid yellow;
-}
-
-/* ===== Секції ===== */
-
-section {
-    background-color: white;
-    margin: 2rem;
-    padding: 2rem;
-    border-radius: 12px;
-}
-
-/* ===== Заголовки ===== */
-
-h1 {
-    font-size: 2.5rem;
-}
-
-h2 {
-    position: relative;
-    margin-bottom: 1.5rem;
-}
-
-h2::after {
-    content: "";
-    display: block;
-    width: 60px;
-    height: 4px;
-    background-color: #4c6ef5;
-    margin-top: 0.5rem;
-}
-
-/* ===== Зображення ===== */
-
-figure {
-    position: relative;
-    overflow: hidden;
+    font-family: var(--font-main);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-size: clamp(1rem, 1.5vw, 1.1rem);
 }
 
 img {
-    width: 250px;
-    border-radius: 16px;
-    border: 4px solid #4c6ef5;
-    transition: 0.3s;
+    max-width: 100%;
+    height: auto;
 }
 
-img:hover {
-    transform: scale(1.05);
+/* GRID LAYOUT */
+.page {
+    display: grid;
+    grid-template-areas:
+        "header"
+        "content"
+        "sidebar"
+        "footer";
+    gap: var(--spacing);
+    padding: var(--spacing);
 }
 
-/* ===== Таблиця ===== */
+header { grid-area: header; }
+main { grid-area: content; }
+aside { grid-area: sidebar; }
+footer { grid-area: footer; }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
+/* DESKTOP GRID */
+@media (min-width: 1024px) {
+    .page {
+        grid-template-areas:
+            "header header"
+            "sidebar content"
+            "footer footer";
+        grid-template-columns: 250px 1fr;
+    }
 }
 
-th,
-td {
-    border: 1px solid #ccc;
-    padding: 1rem;
-}
-
-th {
-    background-color: #4c6ef5;
+/* HEADER */
+header {
+    background: #222;
     color: white;
+    padding: var(--spacing);
 }
 
-tbody tr:nth-child(even) {
-    background-color: #f1f3f5;
+/* NAV (FLEX) */
+.nav-list {
+    display: flex;
+    gap: var(--spacing);
+    list-style: none;
+    padding: 0;
 }
 
-tbody tr:hover {
-    background-color: #dbe4ff;
-}
-
-/* ===== Форма ===== */
-
-form {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 12px;
-}
-
-label {
-    display: block;
-    margin-top: 1rem;
-    font-weight: bold;
-}
-
-input[type="text"],
-input[type="email"],
-select,
-textarea {
-    width: 100%;
-    padding: 0.8rem;
-    margin-top: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-select:focus,
-textarea:focus {
-    outline: none;
-    border-color: #4c6ef5;
-    box-shadow: 0 0 5px rgba(76, 110, 245, 0.5);
-}
-
-button {
-    margin-top: 1rem;
-    padding: 0.8rem 1.5rem;
-    background-color: #4c6ef5;
+.nav-list a {
     color: white;
-    border: none;
-    border-radius: 8px;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.nav-list a:hover {
+    color: var(--color-secondary);
+}
+
+/* HAMBURGER */
+#menu-toggle {
+    display: none;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
     cursor: pointer;
-    transition: 0.3s;
 }
 
-button:hover {
-    background-color: #364fc7;
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: white;
 }
 
-/* ===== Aside ===== */
+/* MOBILE MENU */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
 
+    .nav-list {
+        display: none;
+        flex-direction: column;
+    }
+
+    #menu-toggle:checked ~ .nav-list {
+        display: flex;
+    }
+}
+
+/* CARDS GRID */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing);
+}
+
+.card {
+    background: white;
+    padding: var(--spacing);
+    border-radius: var(--radius);
+    transition: var(--transition);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* SECTIONS ANIMATION */
+section {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ASIDE */
 aside {
-    background-color: #edf2ff;
-    padding: 1rem;
-    border-left: 5px solid #4c6ef5;
-    margin: 2rem;
+    background: #e9ecef;
+    padding: var(--spacing);
+    border-radius: var(--radius);
 }
 
-/* ===== Футер ===== */
-
+/* FOOTER */
 footer {
     text-align: center;
-    padding: 1rem;
-    background-color: #212529;
+    padding: var(--spacing);
+    background: #222;
     color: white;
-    margin-top: 2rem;
 }

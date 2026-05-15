@@ -4,86 +4,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Персональне портфоліо Єлізавети Кравцової">
-    <meta name="author" content="Єлізавета Кравцова">
+    <meta name="description" content="Персональне портфоліо">
+    <title>Портфоліо</title>
 
-    <title>Головна — Портфоліо</title>
-
-    <!-- CSS -->
     <link rel="stylesheet" href="styles.css">
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <header>
-        <h1>Єлізавета Кравцова</h1>
+<div class="page">
 
-        <nav>
-            <ul>
-                <li><a href="index.html">Головна</a></li>
-                <li><a href="about.html">Про мене</a></li>
-                <li><a href="contacts.html">Контакти</a></li>
-            </ul>
-        </nav>
-    </header>
+<header>
+    <h1>Єлізавета Кравцова</h1>
 
-    <main>
+    <nav class="nav">
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
 
-        <section>
-            <h2>Вітаю на моєму портфоліо</h2>
+        <ul class="nav-list">
+            <li><a href="index.html">Головна</a></li>
+            <li><a href="about.html">Про мене</a></li>
+            <li><a href="contacts.html">Контакти</a></li>
+        </ul>
+    </nav>
+</header>
 
-            <p>
-                Мене звати <strong>Єлізавета Кравцова</strong>.
-                Я майбутній <em>Frontend-розробник</em>, який вивчає HTML та веброзробку.
-            </p>
+<main>
 
-            <p>
-                Моя мета — створювати сучасні та зручні вебсайти.
-            </p>
+<section class="hero">
+    <h2>Вітаю на моєму портфоліо</h2>
+    <p>Я Frontend-розробник-початківець.</p>
+</section>
 
-            <blockquote>
-                "Успіх — це постійне вдосконалення."
-            </blockquote>
-        </section>
+<section class="projects-grid">
+    <div class="card">Project 1</div>
+    <div class="card">Project 2</div>
+    <div class="card">Project 3</div>
+</section>
 
-        <section>
-            <h2>Мої цілі</h2>
+<section>
+    <h2>Мої цілі</h2>
+    <ol>
+        <li>HTML & CSS</li>
+        <li>JavaScript</li>
+        <li>Frontend development</li>
+    </ol>
+</section>
 
-            <ol>
-                <li>Вивчити HTML та CSS</li>
-                <li>Навчитися створювати адаптивні сайти</li>
-                <li>Стати професійним Frontend-розробником</li>
-            </ol>
-        </section>
+<aside>
+    <h3>Факт</h3>
+    <p>Я люблю вчитись і створювати сайти.</p>
+</aside>
 
-        <section>
-            <h2>Моє фото</h2>
+</main>
 
-            <figure>
-                <img src="images/avatar.jpg" alt="Фото Єлізавети Кравцової" width="300">
-                <figcaption>Моє персональне фото</figcaption>
-            </figure>
-        </section>
+<footer>
+    <p>© 2026 Портфоліо</p>
+</footer>
 
-        <aside>
-            <h3>Цікавий факт</h3>
-            <p>
-                Я люблю вивчати нові технології та працювати над творчими проєктами.
-            </p>
-        </aside>
-
-    </main>
-
-    <footer>
-        <p>&copy; 2026 Єлізавета Кравцова. Всі права захищені.</p>
-    </footer>
+</div>
 
 </body>
-
 </html>
