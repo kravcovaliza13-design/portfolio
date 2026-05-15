@@ -317,3 +317,79 @@ console.log(isValidEmail("user@example.com"));
 console.log(isValidEmail("invalid-email"));
 
 console.log("=== ЛР4 END ===");
+
+const list = document.querySelector('.task-list');
+const input = document.querySelector('.task-input');
+const addBtn = document.querySelector('.add-btn');
+
+let tasks = [];
+
+// 1. ЗАГРУЗКА З API
+async function loadTasks() {
+  const res = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=10');
+  tasks = await res.json();
+  renderTasks(tasks);
+}
+
+// 2. ОТОБРАЖЕНИЕ
+function renderTasks(data) {
+  list.innerHTML = '';
+
+  data.forEach(task => {
+    const li = document.createElement('li');
+
+    li.innerHTML = `
+      <input type="checkbox" ${task.completed ? 'checked' : ''}>
+      <span>${task.title}</span>
+      <button data-id="${task.id}">Delete</button>
+    `;
+
+    list.appendChild(li);
+  });
+}
+
+// 3. ДОБАВЛЕНИЕ
+addBtn.addEventListener('click', () => {
+  const text = input.value.trim();
+  if (!text) return;
+
+  const newTask = {
+    id: Date.now(),
+    title: text,
+    completed: false
+  };
+
+  tasks.unshift(newTask);
+  renderTasks(tasks);
+  input.value = '';
+});
+
+// 4. DELETE + TOGGLE (делегирование)
+list.addEventListener('click', (e) => {
+  const id = e.target.dataset.id;
+
+  if (e.target.tagName === 'BUTTON') {
+    tasks = tasks.filter(t => t.id != id);
+    renderTasks(tasks);
+  }
+
+  if (e.target.type === 'checkbox') {
+    const task = tasks.find(t => t.id == id);
+    if (task) task.completed = e.target.checked;
+  }
+});
+
+// старт
+loadTasks();
+
+const search = document.querySelector('.search-input');
+
+search.addEventListener('input', (e) => {
+  const value = e.target.value.toLowerCase();
+
+  const filtered = tasks.filter(task =>
+    task.title.toLowerCase().includes(value)
+  );
+
+  renderTasks(filtered);
+});
